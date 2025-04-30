@@ -4,7 +4,6 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from books_app.config import Config
 import os
-from .models import User
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -22,6 +21,7 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
+from .models import User
 
 # Tell manager how to load a user with a particular id
 @login_manager.user_loader
