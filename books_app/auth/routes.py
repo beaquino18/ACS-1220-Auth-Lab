@@ -48,5 +48,5 @@ def login():
 
 @auth.route('/logout')
 def logout():
-    # TODO: Fill out this route!
-    pass
+    logout_user()
+    return redirect(url_for('main.homepage'))

@@ -4,42 +4,34 @@
 
 <h1>{{ book.title }}</h1>
 
-<!-- TODO: Show this only if the user is logged in and the book is not in their 
-    favorites-->
-<form action="/favorite/{{ book.id }}" method="POST">
-    <input type="submit" value="Favorite This Book">
-</form>
-
-
-<!-- TODO: Show this only if the user is logged in and the book is not in their 
-    favorites-->
-<form action="/unfavorite/{{ book.id }}" method="POST">
-    <input type="submit" value="Unfavorite This Book">
-</form>
-
-<p>
-    <strong>Author</strong>: {{ book.author.name }}
-</p>
-
-<p>
-    <strong>Author Bio</strong>: {{ book.author.biography }}
-</p>
-
-<p>
-    <strong>Publish date</strong>: {{ book.publish_date }}
-</p>
-
-<p>
-    <strong>Audience</strong>: {{ book.audience }}
-</p>
+<p><strong>Author</strong>: {{ book.author.name }}</p>
+<p><strong>Author Bio</strong>: {{ book.author.biography }}</p>
+<p><strong>Publication Date</strong>: {{ book.publish_date }}</p>
+<p><strong>Audience</strong>: {{ book.audience }}</p>
 
 <p>
     <strong>Genres</strong>: 
     
     {% for genre in book.genres %}
-    {{ genre.name }},
+        <span class="genre">{{ genre.name }}</span>
     {% endfor %}
 </p>
+
+<section>
+    {% if current_user.is_authenticated %}
+        {% if book in current_user.favorite_books %}
+        <!-- User has already favorited this book, show Unfavorite form -->
+            <form action="/unfavorite/{{ book.id }}" method="POST">
+                <input type="submit" value="Unfavorite Book">
+            </form>
+        {% else %}
+        <!-- User hasn't favorited this book yet, show Favorite form -->
+            <form action="/favorite/{{ book.id }}" method="POST">
+                <input type="submit" value="Favorite Book">
+            </form>
+        {% endif %}
+    {% endif %}
+</section>
 
 <form method="POST" action="{{ url_for('main.book_detail', book_id=book.id) }}">
     {{ form.csrf_token }}

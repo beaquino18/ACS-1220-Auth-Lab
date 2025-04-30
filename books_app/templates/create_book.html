@@ -9,6 +9,7 @@
 
         {{ form.title.label }}
         {{ form.title }}
+        <!-- Show form errors -->
         <ul>
         {% for error in form.title.errors %}
             <li class="error">{{ error }}</li>
@@ -17,8 +18,9 @@
         
         {{ form.publish_date.label }}
         {{ form.publish_date(placeholder="YYYY-mm-dd") }}
+        <!-- Show form errors -->
         <ul>
-        {% for error in form.title.errors %}
+        {% for error in form.publish_date.errors %}
             <li class="error">{{ error }}</li>
         {% endfor %}
         </ul>
@@ -33,19 +35,9 @@
         
         {{ form.audience.label }}
         {{ form.audience }}
-        <ul>
-        {% for error in form.audience.errors %}
-            <li class="error">{{ error }}</li>
-        {% endfor %}
-        </ul>
         
         {{ form.genres.label }}
         {{ form.genres }}
-        <ul>
-        {% for error in form.genres.errors %}
-            <li class="error">{{ error }}</li>
-        {% endfor %}
-        </ul>
             
         {{ form.submit }}
     </fieldset>
