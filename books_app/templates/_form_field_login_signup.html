@@ -1,0 +1,24 @@
+<form action="{{ action }}" method="POST">
+  {{ form.csrf_token }}
+  <fieldset>
+    {% if legend %}
+    <legend> {{ legend }}</legend>
+    {% endif %}
+
+    {% for field in form if field.name != 'csrf_token' and field.name != 'submit' %}
+      {{ field.label }}
+      {{ field }}
+
+      <ul>
+
+        {% for error in field.errors %}
+          <li class="error">{{ error }}</li>
+        {% endfor%}
+
+      </ul>
+    {% endfor%}
+
+    {{ form.submit }}
+
+  </fieldset>
+</form>
